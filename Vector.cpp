@@ -3,17 +3,20 @@
 #include<cmath>
 #include <iostream>
 using namespace std;
+
 Vector::Vector() {
 	data = new int[2];
 	capacity = 2;
 	size = 0;
 }
+
 //Vector:: Vector(int* myData, int myCapacity, int mySize) {
 //	data = myData;
 //	capacity = myCapacity;
 //	size = mySize;
 //	cout << "1";
 //}
+
 Vector::Vector(int mcapacity)//constructor
 {
 	capacity = mcapacity;
@@ -21,6 +24,7 @@ Vector::Vector(int mcapacity)//constructor
 	size = 0;
 	
 }
+
 Vector::Vector(const Vector& vec)//copy-constructor
 {
 	capacity = vec.capacity;
@@ -30,12 +34,15 @@ Vector::Vector(const Vector& vec)//copy-constructor
 		data[i] = vec.data[i];
 	
 }
+
 Vector::~Vector()
 {
 	if (data)
 		delete[] data;
+	data = NULL;
 	size = 0;
 }
+
 void Vector::print()
 {
 	cout << "capacity: " << capacity << " size: " << size << " values: ";
@@ -43,21 +50,24 @@ void Vector::print()
 		cout << data[i] << ' ';
 	cout << endl;
 }
-int Vector::getCapacity() {
+
+int Vector::getCapacity() {	// const
 	return capacity;
 }
-int Vector::getSize() {
+
+int Vector::getSize() {	// const
 	return size;
 }
-void Vector::assign( Vector vec)//like =
+
+void Vector::assign(const Vector& vec)//like =
 { 
 	capacity = vec.capacity;
 	size = vec.size;
 	for (int i = 0; i < size; i++) {
 		data[i] = vec.data[i];
 	}
-
 }
+
 bool Vector:: isEqual(const Vector& r1) const {//like==
 
 	if (r1.size != size)
@@ -66,12 +76,11 @@ bool Vector:: isEqual(const Vector& r1) const {//like==
 		for (int i = 0; i < size; i++) {
 			if (data[i] != r1.data[i])
 				return false;
-		
 		}
 		return true;
 	}
-
 }
+
 int& Vector::at(int index) {//return the value in index
 	if ((index > (size-1))||(index<0)) {
 		cout << "ERROR" << endl;
@@ -79,13 +88,14 @@ int& Vector::at(int index) {//return the value in index
 	}
 	else
 		return data[index];
-
 }
+
 void Vector::clear() {//clear the data
 	for (int i = 0; i < size; i++)
-		data[i] =0;
+		data[i] = 0;
 	size = 0;
 }
+
 void Vector::delLast() {//dalete tha last value
 	if (size == 0)
 		cout << "ERROR" << endl;
@@ -111,6 +121,7 @@ void Vector:: insert(int val) {//insert value to last
 		capacity = capacity * 2;
 	}
 }
+
 int Vector:: strcatcat(Vector& r1) {////machpala vectorit
 	if (size != r1.size) {
 		cout << "ERROR" << endl;
@@ -124,19 +135,21 @@ int Vector:: strcatcat(Vector& r1) {////machpala vectorit
 		}
 		return mone;
 	}
-		
-
 }
+
 Vector Vector::strnewcat( Vector r1)  { //shirshur vectorim
 
 	Vector vec(capacity + r1.getCapacity());
-	//vec.size = size + r1.getSize();
+	//vec.size = size + r1.getSize();	// This is the right one...
 	vec.size = size;
 	int i = 0;
 	for ( i = 0; i < size; i++) {
 		vec.data[i] = data[i];
 	}
-	int j = 0;
+	
+
+
+}
 	//while ((i < vec.getCapacity()) & (j < r1.getSize())) {
 	//	vec.data[i] = r1.data[j];
 	//	i++;
@@ -145,9 +158,9 @@ Vector Vector::strnewcat( Vector r1)  { //shirshur vectorim
 	//}
 
 	
-for (int j = 0;(i < vec.getCapacity())&(j<r1.getSize()); j++, i++) {
-	int a= r1.data[j];
-	vec.insert(a);
-	}
-	return vec;
-}
+	/*for (int j = 0;(i < vec.getCapacity())&(j<r1.getSize()); j++, i++) {
+		int a= r1.data[j];
+		vec.insert(a);
+		}
+		return vec;
+}*/
