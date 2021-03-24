@@ -3,6 +3,7 @@
 #include<cmath>
 #include <iostream>
 using namespace std;
+
 Vector::Vector() {
 	data = new int[2];
 	capacity = 2;
@@ -51,12 +52,14 @@ int Vector::getSize() const{
 }
 void Vector::assign(const Vector & vec)//like =
 { 
+    if(size < vec.size)
+	    delete data;
 	capacity = vec.capacity;
 	size = vec.size;
+	data = new int[size];
 	for (int i = 0; i < size; i++) {
 		data[i] = vec.data[i];
 	}
-
 }
 bool Vector:: isEqual(const Vector& r1) const {//like==
 
@@ -127,21 +130,23 @@ int Vector:: strcatcat(Vector& r1) {////machpala vectorit
 		
 
 }
+
 Vector Vector::strnewcat(const Vector& r1)const  { //shirshur vectorim
 
 	Vector vec(capacity + r1.getCapacity());
 	vec.size = size + r1.getSize();
 	int i = 0;
-	for ( i = 0; i < size; i++) {//add firth vector
+	for ( i = 0; i < size; i++) {//add first vector
 		vec.data[i] = data[i];
 	}
-	for (int j = 0; (i < vec.getCapacity()) & (j < r1.getSize()); j++, i++) {//add firth srcond
+	for (int j = 0; (i < vec.getCapacity()) && (j < r1.getSize()); j++, i++) {//add firth srcond
 		vec.data[i] =r1. data[j];
 	}
-	
+	return vec;
+}
+
 //for (int j = 0;(i < vec.getCapacity())&(j<r1.getSize()); j++, i++) {
 	//int a= r1.data[j];
 	//vec.insert(a);
 //	}
-	return vec;
-}
+	
